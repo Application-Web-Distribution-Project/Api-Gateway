@@ -12,7 +12,7 @@ spring:
           '[/**]':
             allowedOrigins:
               - "http://localhost:4200"
-              - "http://angular-frontend:4200"  # Ajout du container Angular
+              - "http://angular-frontend:4200"
             allowedMethods:
               - GET
               - POST
