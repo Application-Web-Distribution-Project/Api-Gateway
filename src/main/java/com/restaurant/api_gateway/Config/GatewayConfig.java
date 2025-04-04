@@ -15,7 +15,7 @@ public class GatewayConfig {
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("reclamations-service", r -> r.path("/reclamations/**")
+                .route("reclamations-service", r -> r.path("/api/reclamations/**")
                         .uri("lb://reclamations-service"))
                 .build();
     }
@@ -27,7 +27,10 @@ public class GatewayConfig {
                 "http://angular-frontend:4200",
                 "http://localhost:4200",
                 "http://api-gateway:8081",
-                "http://localhost:8081"
+                "http://localhost:8081",
+                "http://docker.host.internal:8081",
+                
+                "http://docker.host.internal:4200"
         ));
 
         corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

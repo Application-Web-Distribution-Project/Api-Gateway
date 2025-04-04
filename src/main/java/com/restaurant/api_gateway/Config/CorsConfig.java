@@ -18,7 +18,7 @@ public class CorsConfig {
         // Ajoute les bonnes URLs (localhost + container)
         config.setAllowedOrigins(Arrays.asList(
                 "http://localhost:4200",
-                "http://192.168.100.47:4200",
+                "http://docker.host.internal:4200",
                 "http://angular-frontend:4200" // ✅ Angular tourne en Docker
         ));
 
