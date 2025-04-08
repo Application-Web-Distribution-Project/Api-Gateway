@@ -1,6 +1,5 @@
-
 server:
-  port: 8081  # Port de l'API Gateway
+  port: 8081  
 
 spring:
   application:
@@ -9,11 +8,12 @@ spring:
   cloud:
     gateway:
       globalcors:
+        add-to-simple-url-handler-mapping: true  # Enable CORS for actuator endpoints
         corsConfigurations:
           '[/**]':
             allowedOrigins:
               - "http://localhost:4200"
-              - "http://angular-frontend:4200"
+              - "http://localhost:8081"
             allowedMethods:
               - GET
               - POST
@@ -22,11 +22,12 @@ spring:
               - OPTIONS
             allowedHeaders: "*"
             allowCredentials: true
+            maxAge: 3600
       routes:
-        - id: reclamation-service
+        - id: reclamations-service
           uri: lb://reclamations-service
           predicates:
-            - Path=/api/reclamations/**
+            - Path=/reclamations/**
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
             - RequestSize=10MB  # Pour éviter les erreurs de taille de requête
@@ -49,7 +50,7 @@ eureka:
     fetch-registry: true
 
   instance:
-    hostname: api-gateway  # Change de localhost à api-gateway
+    hostname: api-gateway  
     prefer-ip-address: true
 
 management:

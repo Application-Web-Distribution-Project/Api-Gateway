@@ -39,6 +39,18 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
+		 <!-- Circuit Breaker pour la résilience -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+        </dependency>
+
+		 <!-- Spring Security pour la sécurité -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
 		<!-- Pour les tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
