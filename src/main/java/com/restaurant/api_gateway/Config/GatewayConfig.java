@@ -17,29 +17,10 @@ public class GatewayConfig {
         return builder.routes()
                 .route("reclamations-service", r -> r.path("/reclamations/**")
                         .uri("lb://reclamations-service"))
+                .route("commandes-service", r -> r.path("/commandes/**")
+                        .uri("lb://commandes-service"))
                 .build();
     }
-    @Bean
-    public CorsWebFilter corsWebFilter() {
-        CorsConfiguration corsConfig = new CorsConfiguration();
 
-        corsConfig.setAllowedOrigins(List.of(
-                "http://angular-frontend:4200",
-                "http://localhost:4200",
-                "http://api-gateway:8081",
-                "http://localhost:8081",
-                "http://docker.host.internal:8081",
-                
-                "http://docker.host.internal:4200"
-        ));
 
-        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        corsConfig.setAllowedHeaders(List.of("*"));
-        corsConfig.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
-
-        return new CorsWebFilter(source);
-    }
 }
