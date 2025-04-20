@@ -22,4 +22,5 @@ public class FallbackController {
     public String reclamationServiceFallback() {
         return "Reclamation Service is taking longer than expected. Please try again later.";
     }
+    
 }
