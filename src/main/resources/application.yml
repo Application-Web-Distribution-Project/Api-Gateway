@@ -13,7 +13,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false # Disable automatic route creation
+          enabled: true # Enable automatic route creation
           lowerCaseServiceId: true
       globalcors:
         corsConfigurations:
@@ -49,13 +49,20 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,metrics,prometheus
   endpoint:
     health:
       show-details: always
-  health:
-    circuitbreakers:
+    metrics:
       enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
 
 resilience4j:
   circuitbreaker:
