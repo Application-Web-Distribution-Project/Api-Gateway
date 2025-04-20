@@ -10,8 +10,12 @@ public class SecurityConfig {
     
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http.csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.disable());
-        return http.build();
+        return http
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.disable()) // CORS is handled by CorsConfig
+            .authorizeExchange(exchanges -> exchanges
+                .pathMatchers("/**").permitAll()
+            )
+            .build();
     }
 }

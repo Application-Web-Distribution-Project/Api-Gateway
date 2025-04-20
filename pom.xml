@@ -57,6 +57,12 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 
+        <!-- Bootstrap support for Spring Cloud Config -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
 		<!-- Pour les tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
