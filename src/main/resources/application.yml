@@ -31,6 +31,10 @@ spring:
             allowedHeaders: "*"
             allowCredentials: true
             maxAge: 3600
+      # Increase timeouts for all routes
+      httpclient:
+        connect-timeout: 10000 # 10 seconds
+        response-timeout: 30s # 30 seconds
 
 # Eureka configuration in case config server is down
 eureka:
@@ -39,10 +43,22 @@ eureka:
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://eureka:8761/eureka/}
     register-with-eureka: true
     fetch-registry: true
+    # Increase cache refresh time
+    registry-fetch-interval-seconds: 5
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}
     hostname: api-gateway
+    # More frequent health checks
+    lease-renewal-interval-in-seconds: 10
+
+# Add debug logging for troubleshooting
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    org.springframework.web.reactive.function.client: DEBUG
+    reactor.netty.http.client: DEBUG
 
 # Management endpoints for monitoring
 management:
@@ -72,22 +88,54 @@ resilience4j:
         slidingWindowSize: 10
         minimumNumberOfCalls: 5
         failureRateThreshold: 50
-        waitDurationInOpenState: 5s
+        waitDurationInOpenState: 10s  # Increased from 5s
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowType: COUNT_BASED
+        # Add timeout configuration
+        timeoutDuration: 20s
       commandesCB:
         registerHealthIndicator: true
         slidingWindowSize: 10
         minimumNumberOfCalls: 5
         failureRateThreshold: 50
-        waitDurationInOpenState: 5s
+        waitDurationInOpenState: 10s  # Increased from 5s
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowType: COUNT_BASED
+        # Add timeout configuration
+        timeoutDuration: 20s
       reclamationsCB:
         registerHealthIndicator: true
         slidingWindowSize: 10
         minimumNumberOfCalls: 5
         failureRateThreshold: 50
-        waitDurationInOpenState: 5s
+        waitDurationInOpenState: 10s  # Increased from 5s
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowType: COUNT_BASED
+        # Add timeout configuration
+        timeoutDuration: 20s
+      menuCB:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s  # Increased from 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+        # Add timeout configuration
+        timeoutDuration: 20s
+        
+  # Add TimeLimiter configuration
+  timelimiter:
+    instances:
+      usersCB:
+        timeoutDuration: 20s
+        cancelRunningFuture: true
+      commandesCB:
+        timeoutDuration: 20s
+        cancelRunningFuture: true
+      reclamationsCB:
+        timeoutDuration: 20s
+        cancelRunningFuture: true  
+      menuCB:
+        timeoutDuration: 20s
+        cancelRunningFuture: true
