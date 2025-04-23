@@ -123,6 +123,16 @@ resilience4j:
         slidingWindowType: COUNT_BASED
         # Add timeout configuration
         timeoutDuration: 20s
+      livraisonCB:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s  # Increased from 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+        # Add timeout configuration
+        timeoutDuration: 20s
         
   # Add TimeLimiter configuration
   timelimiter:
@@ -137,5 +147,8 @@ resilience4j:
         timeoutDuration: 20s
         cancelRunningFuture: true  
       menuCB:
+        timeoutDuration: 20s
+        cancelRunningFuture: true
+      livraisonCB:
         timeoutDuration: 20s
         cancelRunningFuture: true

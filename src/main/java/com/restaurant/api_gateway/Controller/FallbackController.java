@@ -27,5 +27,8 @@ public class FallbackController {
     public String menuServiceFallback() {
         return "Menu Service is taking longer than expected. Please try again later.";
     }
-    
+    @GetMapping("/livraisons")
+    public String livraisonServiceFallback() {
+        return "livraison Service is taking longer than expected. Please try again later.";
+    }
 }
